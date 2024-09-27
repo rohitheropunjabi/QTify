@@ -1,9 +1,8 @@
-//import logo from './logo.svg';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
-//import Section from './components/Section/Section';
-//import FilterSection from './components/FilterSection/FilterSection';
-//import {fetchTopAlbums, fetchNewAlbums, fetchSongs} from './api/api'
+import Section from './components/Section/Section';
+import FilterSection from './components/FilterSection/FilterSection';
+import {fetchTopAlbums, fetchNewAlbums, fetchSongs} from './api/api'
 import { useEffect, useState } from 'react';
 import styles from "./App.module.css"
 
@@ -25,7 +24,7 @@ function App() {
 
 
   //function to get top/new Album/Songs we will be using function from API file also
-  /*const generateTopAlbumSongs=async()=>{
+  const generateTopAlbumSongs=async()=>{
     try{
       const res= await fetchTopAlbums();
     setTopAlbumSongs(res);
@@ -34,9 +33,9 @@ function App() {
       console.log(error);
       return null;
     } 
-  }*/
+  }
 
-  /*const generateNewAlbumSongs=async()=>{
+  const generateNewAlbumSongs=async()=>{
     try{
       const res= await fetchNewAlbums();
     setNewAlbumSongs(res);
@@ -45,9 +44,9 @@ function App() {
       console.log(error);
       return null;
     } 
-  }*/
+  }
 
-  /*const generateSongs=async()=>{
+  const generateSongs=async()=>{
     try{
       console.log("generateSongs");
       const res=await fetchSongs();
@@ -57,7 +56,7 @@ function App() {
     catch(error){
       return null;
     }
-  }*/
+  }
 
 //function to generate filtered songs after selecting one tab
 const generateNewSongs=(index)=>{
@@ -66,7 +65,7 @@ const generateNewSongs=(index)=>{
   if(index===0){
     // suppose someOne select 0th tab after 2nd tab 
     //set the default songsData as the final filtered data, bcz we need to show all of songs now
-    //generateSongs();
+    generateSongs();
     return;
   }
   else if(index===1){
@@ -102,9 +101,9 @@ const generateNewSongs=(index)=>{
  }
 
   useEffect(()=>{
-    //generateTopAlbumSongs();
-    //generateNewAlbumSongs();
-    //generateSongs();
+    generateTopAlbumSongs();
+    generateNewAlbumSongs();
+    generateSongs();
   },[])
 
   return (
@@ -112,11 +111,12 @@ const generateNewSongs=(index)=>{
       <Navbar />
       <Hero />
       <div className={styles.sectionWrapper}>
+      <Section type='album' title='Top Albums' data={topAlbumSongs}/>
+      <Section type='album' title='New Albums' data={newAlbumSongs}/>
+      <FilterSection  type='song' title='Songs' value={value} filteredData={filteredData} handleChangeIndex={handleChangeIndex}/>
       </div>
     </div>
   );
 }
 
 export default App;
-
-// rcfe: react component function export
